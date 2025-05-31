@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import styles from "./switch.module.css";
 import { memo, useEffect, useState } from "react";
 
@@ -42,8 +43,11 @@ export const NoFOUCScript = (storageKey: string) => {
     const systemMode = media.matches ? DARK : LIGHT;
     const resolvedMode = mode === SYSTEM ? systemMode : mode;
     const classList = document.documentElement.classList;
+    // Remove any existing data-mode attribute first
+    document.documentElement.removeAttribute("data-mode");
     if (resolvedMode === DARK) classList.add(DARK);
     else classList.remove(DARK);
+    // Set the data-mode attribute after class changes
     document.documentElement.setAttribute("data-mode", mode);
     restoreTransitions();
   };
